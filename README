@@ -2,3 +2,9 @@
 # Lil Battery Jr.
 
 A battery monitoring app that alerts when the battery limit has been reached on a laptop.
+
+## For dev
+
+This project uses UV
+`` py install uv
+uv run testingbattery.py``
