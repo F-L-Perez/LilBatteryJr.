@@ -1,4 +1,4 @@
-target_percentage = -1
+import psutil
 
 # Program process that gets target integer
 def get_percentage() -> int:
@@ -13,6 +13,19 @@ def get_percentage() -> int:
             continue
         return num
 
+# Percentage monitor process
+def monitor(target):
+    while True:
+        b = psutil.sensors_battery()
+        if b.percent == target_percent:
+            print(f"ATTENTION: YOUR DEVICE HAS REACHED {b.percent}% BATTERY")
+            break
+        elif b.percent < target_percent:
+            print(f"ATTENTION: YOUR DEVICE HAS REACHED BELOW {b.percent}% BATTERY")
+            break
+
 # Main
 print("Welcome to lilbatteryjr!")
-print(f"Number chosen: {get_percentage()}")
+target_percent = get_percentage()
+print(f"Number chosen: {target_percent}")
+monitor(target_percent)
