@@ -3,11 +3,13 @@ import psutil
 # Program process that gets target integer
 def get_percentage() -> int:
     while True:
+        # Make sure input is integer
         try:
             num = int(input("At what battery percentage would you like to be notified?\n"))
         except ValueError:
             input("Input could not be read as number. Press enter to continue.")
             continue
+        # Make sure input falls under range
         if num < 0 or num > 100:
             input("Input is outside of the 0-100 range. Press enter to continue.")
             continue
