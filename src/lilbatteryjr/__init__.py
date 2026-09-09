@@ -16,13 +16,13 @@ def get_percentage() -> int:
         # Make sure input batter
         return num
 
-def battery():
+def get_battery():
     return psutil.sensors_battery()
 
 # Percentage monitor process
 def monitor(rising):
     while True:
-        b = battery()
+        b = get_battery()
 
         if b.percent == target_percent:
             print(f"ATTENTION: YOUR DEVICE HAS REACHED {b.percent}% BATTERY")
@@ -35,7 +35,7 @@ def monitor(rising):
 
 print("Welcome to lilbatteryjr!")
 
-battery = battery()
+battery = get_battery()
 if not battery:
     print("No battery detected on this device. Ending program.")
     quit()
