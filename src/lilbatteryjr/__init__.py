@@ -32,6 +32,7 @@ def monitor(rising):
             break
         elif b.percent > target_percent and rising:
             print(f"ATTENTION: YOUR DEVICE HAS REACHED ABOVE {b.percent}% BATTERY")
+            break
 
 print("Welcome to lilbatteryjr!")
 
