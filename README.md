@@ -19,7 +19,7 @@ uv run testingbattery.py
 Alpha:
 - [ ] Simple GUI
 - [ ] Run in background continuously
-- [ ] Check battery and if it applies to device (laptop or tablet, not PC)
+- [x] Check battery and if it applies to device (laptop or tablet, not PC)
 - [ ] Notify if below or above a threshold, add notification/alert system
 - [ ] Establish preview branch and main branch development pipeline
 
