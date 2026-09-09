@@ -34,11 +34,17 @@ def monitor(rising):
             print(f"ATTENTION: YOUR DEVICE HAS REACHED ABOVE {b.percent}% BATTERY")
 
 print("Welcome to lilbatteryjr!")
+
+battery = battery()
+if not battery:
+    print("No battery detected on this device. Ending program.")
+    quit()
+
 target_percent = get_percentage()
 print(f"Number chosen: {target_percent}")
 
 # Get percentage and check if the system is rising or falling to the percentage
-current_percent = battery().percent
+current_percent = battery.percent
 if target_percent < current_percent:
     print(f"Your system will be alerted when the battery depletes to or below {target_percent}%.")
 elif target_percent > current_percent:
