@@ -11,9 +11,15 @@ class fullMainWindow(QMainWindow):
 
         self.setWindowTitle("Lil Battery Jr")
         button = QPushButton("Check Battery Level!")
+        button.setCheckable(True)
+        button.clicked.connect(self.button_clicked)
 
+        self.setMinimumSize(QSize(426,240))
+        self.setMaximumSize(QSize(1920, 1080))
         #set central widget of window
         self.setCentralWidget(button)
+    def button_clicked(self):
+        print("clicked!")
 
 #one Qapplication per app instance, below calls command line
 app = QApplication(sys.argv)
