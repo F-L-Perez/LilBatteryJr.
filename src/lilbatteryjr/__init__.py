@@ -1,4 +1,6 @@
 import psutil
+from pynput.keyboard import Key, Listener
+import asyncio
 
 # Program process that gets target integer
 def get_percentage() -> int:
@@ -20,7 +22,7 @@ def get_battery():
     return psutil.sensors_battery()
 
 # Percentage monitor process
-def monitor(rising):
+async def monitor(rising):
     while True:
         b = get_battery()
 
@@ -34,26 +36,37 @@ def monitor(rising):
             print(f"ATTENTION: YOUR DEVICE HAS REACHED ABOVE {b.percent}% BATTERY")
             break
 
-print("Welcome to lilbatteryjr!")
+def on_press(key, injected):
+    input("...What?\n")
+    print("...OK.")
 
-battery = get_battery()
-if not battery:
-    print("No battery detected on this device. Ending program.")
-    quit()
+async def listen():
+    with Listener(on_press=on_press) as listener:
+        listener.join()
 
-target_percent = get_percentage()
-print(f"Number chosen: {target_percent}")
+async def main():
+    print("Welcome to lilbatteryjr!")
 
-# Get percentage and check if the system is rising or falling to the percentage
-current_percent = battery.percent
-if target_percent < current_percent:
-    print(f"Your system will be alerted when the battery depletes to or below {target_percent}%.")
-elif target_percent > current_percent:
-    print(f"Your system will be alerted when the battery charges to or above {target_percent}%.")
-else:
-    print(f"Your system's battery is already at this percentage. Ending program.")
-    quit()
-rising = target_percent > current_percent
+    battery = get_battery()
+    if not battery:
+        print("No battery detected on this device. Ending program.")
+        quit()
 
-# Event loop
-monitor(rising)
+    target_percent = get_percentage()
+    print(f"Number chosen: {target_percent}")
+
+    # Get percentage and check if the system is rising or falling to the percentage
+    current_percent = battery.percent
+    if target_percent < current_percent:
+        print(f"Your system will be alerted when the battery depletes to or below {target_percent}%.")
+    elif target_percent > current_percent:
+        print(f"Your system will be alerted when the battery charges to or above {target_percent}%.")
+    else:
+        print(f"Your system's battery is already at this percentage. Ending program.")
+        quit()
+    rising = target_percent > current_percent
+
+    # Event loop
+    await asyncio.gather(monitor(rising), listen())
+
+asyncio.run(main())
